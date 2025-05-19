@@ -24,7 +24,7 @@ export async function login({ email, password }) {
 }
 
 export async function logout() {
-    return axios.post("http://localhost:8080/api/auth/logout", {},{
+    return axios.post("http://localhost:8080/api/admin/logout", {},{
         withCredentials: true
     })
 }
