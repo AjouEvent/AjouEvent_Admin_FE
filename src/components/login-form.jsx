@@ -27,7 +27,7 @@ export function LoginForm({ className, onToggle, ...props }) {
       })
 
       console.log("로그인 성공!", res.data)
-      navigate("/login")
+      navigate("/member/role")
     } catch (err) {
       const code = err?.response?.data?.code
       if (code === 404001) {
