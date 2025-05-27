@@ -1,5 +1,6 @@
 // src/api/auth.js
 import axios from "axios"
+import { adminAxios} from "@/api/adminAxios.js";
 
 export async function signup({ email, password, userNickname }) {
     try {
@@ -17,14 +18,27 @@ export async function signup({ email, password, userNickname }) {
 }
 
 export async function login({ email, password }) {
-    return axios.post("http://localhost:8080/api/auth/login", {
+    const res = await axios.post("http://localhost:8080/api/auth/login", {
         email,
         password,
-    })
+    });
+    const sessionId = res.headers["x-session-id"];
+    if (sessionId) {
+        sessionStorage.setItem("JSESSIONID", sessionId);
+    } else {
+        console.warn("세션 ID가 응답 헤더에 안 들어있음!");
+    }
+
+    return res;
 }
 
+
 export async function logout() {
-    return axios.post("http://localhost:8080/api/auth/logout", {},{
-        withCredentials: true
-    })
+    try {
+        await adminAxios.post("/logout");
+        sessionStorage.removeItem("JSESSIONID");
+    } catch (err) {
+        console.error("로그아웃 실패", err);
+        throw err;
+    }
 }

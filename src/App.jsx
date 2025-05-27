@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthForm } from '@/components/auth-form'
 import LoginPage from "@/pages/LoginPage.jsx";
+import MemberRolePage from "@/pages/MemberRolePage.jsx";
 // import { AuthorityPage } from '@/pages/AuthorityPage'
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
-                {/*<Route path="/authority" element={<AuthorityPage />} />*/}
+                <Route path="/member/role" element={<MemberRolePage />} />
             </Routes>
         </Router>
     )
