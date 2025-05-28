@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { LoginForm } from "@/components/login-form"
-import { SignUpForm } from "@/components/sign-up-form"
-import { Button } from "@/components/ui/button"
+import { LoginForm } from "@/components/auth/login-form.jsx"
+import { SignUpForm } from "@/components/auth/sign-up-form.jsx"
+import { Button } from "@/components/ui/button.jsx"
 
 export function AuthForm() {
     const [isLogin, setIsLogin] = useState(true)

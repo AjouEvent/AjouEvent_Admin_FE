@@ -1,10 +1,11 @@
 // src/api/member.js
 import { adminAxios } from "./adminAxios.js";
 
-// 1. 멤버 목록 조회
-export const fetchMembersByRole = async () =>
+export const fetchAllMembers = async () =>
     adminAxios.get(`/members`);
-    // axiosInstance.get(`/admin/members?role=${role}`);
+
+export const fetchMembersByRole = async (role) =>
+    adminAxios.get(`/members?role=${role}`);
 
 // 2. 역할 변경
 export const updateMemberRole = async (id, role) =>

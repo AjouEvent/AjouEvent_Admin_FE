@@ -1,28 +1,31 @@
-// MemberRolePage.jsx 내부
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem,
+} from "@/components/ui/select";
 
-import { Select, SelectItem } from "@/components/ui/select";
 import {useEffect, useState} from "react";
-import {fetchMembersByRole, updateMemberRole} from "@/api/member.js";
+import {fetchAllMembers, fetchMembersByRole, updateMemberRole} from "@/api/member.js";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 
-const roles = ["USER", "LEADER"];
+const roleOptions = ["ALL", "USER", "LEADER"];
 
 const MemberRolePage = () => {
     const [members, setMembers] = useState([]);
+    const [selectedRole, setSelectedRole] = useState("ALL");
 
-    useEffect(() => {
-        fetchMembersByRole("")
+    const fetchData = (role) => {
+        const fetcher = role === "ALL" ? fetchAllMembers : () => fetchMembersByRole(role);
+        fetcher()
             .then((res) => setMembers(res.data.members))
             .catch(console.error);
-    }, []);
+    };
+
+    useEffect(() => {
+        fetchData(selectedRole);
+    }, [selectedRole]);
 
     const handleRoleChange = (id, newRole) => {
         updateMemberRole(id, newRole).then(() => {
@@ -33,44 +36,58 @@ const MemberRolePage = () => {
     };
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>멤버 역할 관리</CardTitle>
+        <Card className="p-6">
+            <CardHeader className="pb-4">
+                <CardTitle className="flex justify-between items-center">
+                    <span>멤버 역할 관리</span>
+                    <Select value={selectedRole} onValueChange={setSelectedRole}>
+                        <SelectTrigger className="w-[140px]">
+                            <SelectValue placeholder="역할 필터" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {roleOptions.map((r) => (
+                                <SelectItem key={r} value={r}>
+                                    {r}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </CardTitle>
             </CardHeader>
-            <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>이름</TableHead>
-                            <TableHead>이메일</TableHead>
-                            <TableHead>현재 역할</TableHead>
-                            <TableHead>변경</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {members.map((m) => (
-                            <TableRow key={m.id}>
-                                <TableCell>{m.name}</TableCell>
-                                <TableCell>{m.email}</TableCell>
-                                <TableCell>{m.role}</TableCell>
-                                <TableCell>
-                                    <Select
-                                        value={m.role}
-                                        onChange={(value) => handleRoleChange(m.id, value)}
-                                    >
-                                        {roles.map((r) => (
+
+            <CardContent className="space-y-4">
+                {members.map((m) => (
+                    <div key={m.id} className="border rounded-xl p-4 shadow-sm bg-white">
+                        <div className="flex justify-between items-center mb-2">
+                            <div className="text-sm font-medium">
+                                {m.name} ({m.email})
+                            </div>
+                            <div className="text-xs text-muted-foreground">{m.role}</div>
+                        </div>
+                        <div className="flex justify-end">
+                            <Select
+                                defaultValue={m.role}
+                                onValueChange={(value) => handleRoleChange(m.id, value)}
+                            >
+                                <SelectTrigger className="w-[140px]">
+                                    <SelectValue placeholder="역할 선택" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {roleOptions
+                                        .filter((r) => r !== "ALL")
+                                        .map((r) => (
                                             <SelectItem key={r} value={r}>
                                                 {r}
                                             </SelectItem>
                                         ))}
-                                    </Select>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                ))}
             </CardContent>
         </Card>
+
     );
 };
 

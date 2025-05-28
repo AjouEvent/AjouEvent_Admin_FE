@@ -1,7 +1,7 @@
-import { LoginForm } from "@/components/login-form"
+import { LoginForm } from "@/components/auth/login-form.jsx"
 import { GalleryVerticalEnd } from "lucide-react"
-import {SignUpForm} from "@/components/sign-up-form.jsx";
-import {AuthForm} from "@/components/auth-form.jsx";
+import {SignUpForm} from "@/components/auth/sign-up-form.jsx";
+import {AuthForm} from "@/components/auth/auth-form.jsx";
 
 export default function LoginPage() {
     return (
