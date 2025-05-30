@@ -4,25 +4,29 @@ import BlacklistRevokeList from "@/components/blacklist/BlacklistRevokeList";
 import BlacklistAddList from "@/components/blacklist/BlacklistAddList";
 
 const BlacklistPage = () => {
-    const [tab, setTab] = useState("revoke");
+    const [tab, setTab] = useState("add");
 
     return (
-        <div className="space-y-6">
-            <Tabs value={tab} onValueChange={setTab} className="w-full">
-                <TabsList>
-                    <TabsTrigger value="revoke">블랙리스트 해지</TabsTrigger>
-                    <TabsTrigger value="add">블랙리스트 등록</TabsTrigger>
-                </TabsList>
+            <main className="p-6 md:p-10 w-full max-w-6xl mx-auto space-y-6">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-bold">블랙리스트 관리</h1>
+                </div>
 
-                <TabsContent value="revoke">
-                    <BlacklistRevokeList />
-                </TabsContent>
+                <Tabs value={tab} onValueChange={setTab} className="w-full">
+                    <TabsList>
+                        <TabsTrigger value="revoke">블랙리스트 해지</TabsTrigger>
+                        <TabsTrigger value="add">블랙리스트 등록</TabsTrigger>
+                    </TabsList>
 
-                <TabsContent value="add">
-                    <BlacklistAddList />
-                </TabsContent>
-            </Tabs>
-        </div>
+                    <TabsContent value="revoke" className="pt-4">
+                        <BlacklistRevokeList />
+                    </TabsContent>
+
+                    <TabsContent value="add" className="pt-4">
+                        <BlacklistAddList />
+                    </TabsContent>
+                </Tabs>
+            </main>
     );
 };
 

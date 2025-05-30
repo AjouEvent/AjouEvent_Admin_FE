@@ -1,92 +1,12 @@
-// import { useEffect, useState } from "react";
-// import { fetchBlacklist, removeFromBlacklist } from "@/api/blacklist.js";
-// import {
-//     Card, CardHeader, CardTitle, CardContent
-// } from "@/components/ui/card";
-//
-// import {
-//     AlertDialog,
-//     AlertDialogTrigger,
-//     AlertDialogContent,
-//     AlertDialogHeader,
-//     AlertDialogTitle,
-//     AlertDialogDescription,
-//     AlertDialogFooter,
-//     AlertDialogCancel,
-//     AlertDialogAction,
-// } from "@/components/ui/alert-dialog";
-//
-// import {
-//     Table, TableHeader, TableRow, TableHead,
-//     TableBody, TableCell
-// } from "@/components/ui/table";
-//
-// import { Button } from "@/components/ui/button.jsx";
-//
-// const BlacklistRevokeList = () => {
-//   const [blacklist, setBlacklist] = useState([]);
-//
-//   useEffect(() => {
-//     fetchBlacklist().then((res) => setBlacklist(res.data.blacklist));
-//   }, []);
-//
-//   const handleRevoke = async (entry) => {
-//     const confirmed = window.confirm(
-//       `${entry.memberName} 님을 블랙리스트에서 해지하시겠어요?`
-//     );
-//     if (!confirmed) return;
-//
-//     await removeFromBlacklist(entry.memberId);
-//     setBlacklist((prev) =>
-//       prev.filter((item) => item.memberId !== entry.memberId)
-//     );
-//   };
-//
-//   return (
-//     <Card>
-//       <CardHeader>
-//         <CardTitle>블랙리스트 해지</CardTitle>
-//       </CardHeader>
-//       <CardContent>
-//         {blacklist.length === 0 ? (
-//           <p className="text-muted-foreground">등록된 블랙리스트가 없습니다.</p>
-//         ) : (
-//           <Table>
-//             <TableHeader>
-//               <TableRow>
-//                 <TableHead>이름</TableHead>
-//                 <TableHead>사유</TableHead>
-//                 <TableHead>등록일</TableHead>
-//                 <TableHead>조치</TableHead>
-//               </TableRow>
-//             </TableHeader>
-//             <TableBody>
-//               {blacklist.map((entry) => (
-//                 <TableRow key={entry.memberId}>
-//                   <TableCell>{entry.memberName}</TableCell>
-//                   <TableCell>{entry.reason}</TableCell>
-//                   <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
-//                   <TableCell>
-//                     <Button
-//                       variant="destructive"
-//                       onClick={() => handleRevoke(entry)}
-//                     >
-//                       해지
-//                     </Button>
-//                   </TableCell>
-//                 </TableRow>
-//               ))}
-//             </TableBody>
-//           </Table>
-//         )}
-//       </CardContent>
-//     </Card>
-//   );
-// };
-//
-// export default BlacklistRevokeList;
-
-
+import { useEffect, useState } from "react";
+import { fetchBlacklist, removeFromBlacklist } from "@/api/blacklist";
+import {
+    Card, CardHeader, CardTitle, CardContent,
+} from "@/components/ui/card.jsx";
+import {
+    Table, TableBody, TableRow, TableCell
+} from "@/components/ui/table.jsx";
+import { Button } from "@/components/ui/button";
 import {
     AlertDialog,
     AlertDialogTrigger,
@@ -98,18 +18,7 @@ import {
     AlertDialogCancel,
     AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-
-import {
-    Table, TableHeader, TableRow, TableHead,
-    TableBody, TableCell
-} from "@/components/ui/table";
-
-import { useState, useEffect } from "react";
-import { fetchBlacklist, removeFromBlacklist } from "@/api/blacklist";
-import {
-    Card, CardHeader, CardTitle, CardContent,
-} from "@/components/ui/card.jsx";
-import { Button } from "@/components/ui/button";
+import MemberForm from "@/components/member/MemberForm.jsx";
 
 const BlacklistRevokeList = () => {
     const [blacklist, setBlacklist] = useState([]);
@@ -125,41 +34,37 @@ const BlacklistRevokeList = () => {
         setBlacklist((prev) =>
             prev.filter((item) => item.memberId !== selected.memberId)
         );
-        setSelected(null); // 다이얼로그 닫기
+        setSelected(null);
     };
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>블랙리스트 해지</CardTitle>
-            </CardHeader>
+        <Card className="mb-6">
             <CardContent>
                 <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>이름</TableHead>
-                            <TableHead>사유</TableHead>
-                            <TableHead>등록일</TableHead>
-                            <TableHead>조치</TableHead>
-                        </TableRow>
-                    </TableHeader>
                     <TableBody>
                         {blacklist.map((entry) => (
                             <TableRow key={entry.memberId}>
-                                <TableCell>{entry.memberName}</TableCell>
-                                <TableCell>{entry.reason}</TableCell>
-                                <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
                                 <TableCell>
+                                    <MemberForm
+                                        name={entry.memberName}
+                                        reason={entry.reason}
+                                        createdAt={entry.createdAt}
+                                    />
+                                </TableCell>
+                                <TableCell className="align-center text-right">
                                     <AlertDialog>
                                         <AlertDialogTrigger asChild>
-                                            <Button onClick={() => setSelected(entry)}>
+                                            <Button
+                                                variant="secondary"
+                                                onClick={() => setSelected(entry)}
+                                            >
                                                 해지
                                             </Button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle>
-                                                    {selected?.memberName}님을 블랙리스트에서 해지하시겠어요?
+                                                    {selected?.memberName}님을 해지하시겠습니까?
                                                 </AlertDialogTitle>
                                                 <AlertDialogDescription>
                                                     이 작업은 되돌릴 수 없습니다.

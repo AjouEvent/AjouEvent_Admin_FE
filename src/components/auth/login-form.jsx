@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input.jsx"
 import { Label } from "@/components/ui/label.jsx"
 import { cn } from "@/lib/utils.js"
 import {useNavigate} from "react-router-dom";
-import SelectTestForm from "@/components/selectTestForm.jsx";
 
 export function LoginForm({ className, onToggle, ...props }) {
   const [form, setForm] = useState({ email: "", password: "" })

@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="105375c0-68c7-4102-b32b-89b74bcabc83" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/member.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/auth-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/login-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sign-up-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/sign-up-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/select.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/table.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MemberRolePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MemberRolePage.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="105375c0-68c7-4102-b32b-89b74bcabc83" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +96,7 @@
       <workItem from="1747225775735" duration="471000" />
       <workItem from="1747744354987" duration="3055000" />
       <workItem from="1748256380453" duration="9355000" />
-      <workItem from="1748404812456" duration="6861000" />
+      <workItem from="1748404812456" duration="7183000" />
     </task>
     <servers />
   </component>

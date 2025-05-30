@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import BlacklistAddModal from "@/components/blacklist/blacklist-add-form.jsx";
+import MemberForm from "@/components/member/MemberForm.jsx";
 
 const BlacklistAddList = () => {
     const [blacklist, setBlacklist] = useState([]);
@@ -29,26 +30,27 @@ const BlacklistAddList = () => {
     return (
         <>
             <Card className="mb-6">
-                <CardHeader>
-                    <CardTitle>멤버 목록 (블랙리스트 등록)</CardTitle>
-                </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>이름</TableHead>
-                                <TableHead>이메일</TableHead>
-                                <TableHead>역할</TableHead>
-                                <TableHead>조치</TableHead>
-                            </TableRow>
+                        {/*    <TableRow>*/}
+                        {/*        <TableHead>이름</TableHead>*/}
+                        {/*        <TableHead>이메일</TableHead>*/}
+                        {/*        <TableHead>역할</TableHead>*/}
+                        {/*        <TableHead>조치</TableHead>*/}
+                        {/*    </TableRow>*/}
                         </TableHeader>
                         <TableBody>
                             {members.map((m) => (
                                 <TableRow key={m.id}>
-                                    <TableCell>{m.name}</TableCell>
-                                    <TableCell>{m.email}</TableCell>
-                                    <TableCell>{m.role}</TableCell>
                                     <TableCell>
+                                        <MemberForm
+                                            name={m.name}
+                                            email={m.email}
+                                            role={m.role}
+                                        />
+                                    </TableCell>
+                                    <TableCell className="align-center text-right">
                                         <Button onClick={() => setSelectedMember(m)}>블랙리스트 등록</Button>
                                     </TableCell>
                                 </TableRow>
