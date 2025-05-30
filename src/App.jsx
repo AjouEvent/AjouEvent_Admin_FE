@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { AuthForm } from '@/components/auth-form'
 import LoginPage from "@/pages/LoginPage.jsx";
 import MemberRolePage from "@/pages/MemberRolePage.jsx";
-// import { AuthorityPage } from '@/pages/AuthorityPage'
+import BlacklistPage from "@/pages/BlacklistPage.jsx";
+import InquiryPage from "@/pages/InquiryPage.jsx";
 
 function App() {
     return (
@@ -10,6 +10,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/member/role" element={<MemberRolePage />} />
+                <Route path="/member/blacklist" element={<BlacklistPage />} />
+                <Route path="/inquiry" element={<InquiryPage />} />
             </Routes>
         </Router>
     )

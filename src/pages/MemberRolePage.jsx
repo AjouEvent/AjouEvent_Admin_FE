@@ -1,76 +1,33 @@
-// MemberRolePage.jsx 내부
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import MemberRoleForm from "@/components/role/MemberRoleForm";
 
-import { Select, SelectItem } from "@/components/ui/select";
-import {useEffect, useState} from "react";
-import {fetchMembersByRole, updateMemberRole} from "@/api/member.js";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.jsx";
-
-const roles = ["USER", "LEADER"];
+const roleOptions = ["ALL", "USER", "LEADER"];
 
 const MemberRolePage = () => {
-    const [members, setMembers] = useState([]);
-
-    useEffect(() => {
-        fetchMembersByRole("")
-            .then((res) => setMembers(res.data.members))
-            .catch(console.error);
-    }, []);
-
-    const handleRoleChange = (id, newRole) => {
-        updateMemberRole(id, newRole).then(() => {
-            setMembers((prev) =>
-                prev.map((m) => (m.id === id ? { ...m, role: newRole } : m))
-            );
-        });
-    };
+    const [selectedRole, setSelectedRole] = useState("ALL");
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>멤버 역할 관리</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>이름</TableHead>
-                            <TableHead>이메일</TableHead>
-                            <TableHead>현재 역할</TableHead>
-                            <TableHead>변경</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {members.map((m) => (
-                            <TableRow key={m.id}>
-                                <TableCell>{m.name}</TableCell>
-                                <TableCell>{m.email}</TableCell>
-                                <TableCell>{m.role}</TableCell>
-                                <TableCell>
-                                    <Select
-                                        value={m.role}
-                                        onChange={(value) => handleRoleChange(m.id, value)}
-                                    >
-                                        {roles.map((r) => (
-                                            <SelectItem key={r} value={r}>
-                                                {r}
-                                            </SelectItem>
-                                        ))}
-                                    </Select>
-                                </TableCell>
-                            </TableRow>
+        <main className="p-6 md:p-10 w-full max-w-6xl mx-auto space-y-6">
+            <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold">멤버 역할 관리</h1>
+                <Select value={selectedRole} onValueChange={setSelectedRole}>
+                    <SelectTrigger className="w-[140px]">
+                        <SelectValue placeholder="역할 필터" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {roleOptions.map((r) => (
+                            <SelectItem key={r} value={r}>
+                                {r}
+                            </SelectItem>
                         ))}
-                    </TableBody>
-                </Table>
-            </CardContent>
-        </Card>
+                    </SelectContent>
+                </Select>
+            </div>
+
+            <MemberRoleForm selectedRole={selectedRole} />
+        </main>
     );
 };
 
