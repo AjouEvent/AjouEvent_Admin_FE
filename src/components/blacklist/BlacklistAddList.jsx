@@ -10,7 +10,7 @@ import {
     TableBody, TableCell
 } from "@/components/ui/table.jsx";
 import { Button } from "@/components/ui/button.jsx";
-import BlacklistAddModal from "@/components/blacklist/blacklist-add-form.jsx";
+import BlacklistAddModal from "@/components/blacklist/BlacklistAddForm.jsx";
 import MemberForm from "@/components/member/MemberForm.jsx";
 
 const BlacklistAddList = () => {
