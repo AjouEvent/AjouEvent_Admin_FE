@@ -6,73 +6,6 @@ import { BannerModal } from '../components/banner/BannerModal';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-// 테스트용 더미 데이터
-const DUMMY_BANNERS = [
-  {
-    eventBannerId: 1,
-    bannerOrder: 1,
-    imgUrl: 'https://picsum.photos/seed/1/600/200',
-    siteUrl: 'https://ajou.ac.kr/page1',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  },
-  {
-    eventBannerId: 2,
-    bannerOrder: 2,
-    imgUrl: 'https://picsum.photos/seed/2/600/200',
-    siteUrl: 'https://ajou.ac.kr/page2',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  },
-  {
-    eventBannerId: 3,
-    bannerOrder: 3,
-    imgUrl: 'https://picsum.photos/seed/3/600/200',
-    siteUrl: 'https://ajou.ac.kr/page3',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  },
-  {
-    eventBannerId: 4,
-    bannerOrder: 4,
-    imgUrl: 'https://picsum.photos/seed/4/600/200',
-    siteUrl: 'https://ajou.ac.kr/page4',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  },
-  {
-    eventBannerId: 5,
-    bannerOrder: 5,
-    imgUrl: 'https://picsum.photos/seed/5/600/200',
-    siteUrl: 'https://ajou.ac.kr/page5',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  },
-  {
-    eventBannerId: 6,
-    bannerOrder: 6,
-    imgUrl: 'https://picsum.photos/seed/6/600/200',
-    siteUrl: 'https://ajou.ac.kr/page6',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  },
-  {
-    eventBannerId: 7,
-    bannerOrder: 7,
-    imgUrl: 'https://picsum.photos/seed/7/600/200',
-    siteUrl: 'https://ajou.ac.kr/page7',
-    startDate: '2025-05-20',
-    endDate: '2025-06-01',
-    isPosted: true
-  }
-];
-
 function BannerManagePage() {
   const [banners, setBanners] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -81,42 +14,52 @@ function BannerManagePage() {
   const [selectedBanner, setSelectedBanner] = useState(null);
   const navigate = useNavigate();
 
-  // 배너 목록 조회 (테스트용)
+  // 배너 목록 조회
   const fetchBanners = async () => {
     try {
       setIsLoading(true);
-      // 실제 API 호출 대신 더미 데이터 사용
-      setBanners(DUMMY_BANNERS);
+      const response = await axios.get('/api/admin/banners');
+      setBanners(response.data.map(banner => ({
+        ...banner,
+        isPosted: banner.posted // API 응답의 posted를 isPosted로 매핑
+      })));
       setError(null);
     } catch (err) {
+      console.error('배너 목록 조회 에러:', err);
       setError('배너 목록을 불러오는데 실패했습니다.');
-      console.error('Error:', err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // 배너 순서 변경 (테스트용)
+  // 배너 순서 변경
   const handleOrderChange = async (newBanners) => {
     try {
-      // 실제 API 호출 없이 상태만 업데이트
-      setBanners(newBanners);
+      const orderUpdateData = newBanners
+        .filter(banner => banner.isPosted)
+        .map((banner, index) => ({
+          eventBannerId: banner.eventBannerId,
+          bannerOrder: index + 1
+        }));
+
+      await axios.put('/api/admin/banners/order', orderUpdateData);
+      await fetchBanners(); // 순서 변경 후 목록 새로고침
     } catch (err) {
+      console.error('순서 변경 에러:', err);
       setError('배너 순서 변경에 실패했습니다.');
-      console.error('Error:', err);
     }
   };
 
-  // 배너 삭제 (테스트용)
+  // 배너 삭제
   const handleDelete = async (bannerId) => {
     if (!window.confirm('정말로 이 배너를 삭제하시겠습니까?')) return;
 
     try {
-      // 실제 API 호출 없이 상태만 업데이트
-      setBanners(banners.filter(banner => banner.eventBannerId !== bannerId));
+      await axios.delete(`/api/admin/banners/${bannerId}`);
+      await fetchBanners(); // 삭제 후 목록 새로고침
     } catch (err) {
+      console.error('배너 삭제 에러:', err);
       setError('배너 삭제에 실패했습니다.');
-      console.error('Error:', err);
     }
   };
 
@@ -132,38 +75,66 @@ function BannerManagePage() {
     setIsModalOpen(true);
   };
 
-  // 모달 제출 처리 (테스트용)
+  // 배너 활성화/비활성화 토글
+  const handleToggleActive = async (bannerId) => {
+    try {
+      const targetBanner = banners.find(b => b.eventBannerId === bannerId);
+      const isActivating = !targetBanner.isPosted;
+      
+      // 활성화되는 경우 맨 마지막 순서로 배치
+      const lastActiveOrder = isActivating 
+        ? Math.max(...banners.filter(b => b.isPosted).map(b => b.bannerOrder), 0) + 1 
+        : 0;
+
+      await axios.put(`/api/admin/banners/${bannerId}`, {
+        eventBannerId: bannerId,
+        imgUrl: targetBanner.imgUrl,
+        siteUrl: targetBanner.siteUrl,
+        posted: isActivating,
+        bannerOrder: lastActiveOrder,
+        startDate: targetBanner.startDate,
+        endDate: targetBanner.endDate
+      });
+
+      await fetchBanners(); // 상태 변경 후 목록 새로고침
+    } catch (err) {
+      console.error('상태 변경 에러:', err);
+      setError('배너 상태 변경에 실패했습니다.');
+    }
+  };
+
+  // 모달 제출 처리
   const handleModalSubmit = async (formData) => {
     try {
       if (selectedBanner) {
-        // 수정 - 실제 API 호출 없이 상태만 업데이트
-        setBanners(banners.map(banner => 
-          banner.eventBannerId === selectedBanner.eventBannerId 
-            ? { ...banner, ...formData }
-            : banner
-        ));
-      } else {
-        // 추가 - 실제 API 호출 없이 상태만 업데이트
-        const newBanner = {
+        // 수정
+        await axios.put(`/api/admin/banners/${selectedBanner.eventBannerId}`, {
           ...formData,
-          eventBannerId: Math.max(...banners.map(b => b.eventBannerId)) + 1,
-          isPosted: true
-        };
-        setBanners([...banners, newBanner]);
+          eventBannerId: selectedBanner.eventBannerId,
+          posted: selectedBanner.isPosted,
+          bannerOrder: selectedBanner.bannerOrder
+        });
+      } else {
+        // 추가
+        await axios.post('/api/admin/banners', {
+          ...formData,
+          posted: false,
+          bannerOrder: 0
+        });
       }
+      
       setIsModalOpen(false);
+      setSelectedBanner(null);
+      await fetchBanners(); // 수정/추가 후 목록 새로고침
     } catch (err) {
+      console.error('배너 처리 에러:', err);
       setError(selectedBanner ? '배너 수정에 실패했습니다.' : '배너 추가에 실패했습니다.');
-      console.error('Error:', err);
     }
   };
 
   useEffect(() => {
     fetchBanners();
   }, []);
-
-  if (isLoading) return <div className="p-4">로딩 중...</div>;
-  if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
     <div className="flex h-screen">
@@ -179,17 +150,31 @@ function BannerManagePage() {
             </button>
           </div>
 
-          <BannerList
-            banners={banners}
-            onOrderChange={handleOrderChange}
-            onDelete={handleDelete}
-            onEdit={handleEdit}
-          />
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 text-red-700 rounded">
+              {error}
+            </div>
+          )}
+
+          {isLoading ? (
+            <div className="text-center py-8">로딩 중...</div>
+          ) : (
+            <BannerList
+              banners={banners}
+              onOrderChange={handleOrderChange}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              onToggleActive={handleToggleActive}
+            />
+          )}
 
           <BannerModal
             banner={selectedBanner}
             isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
+            onClose={() => {
+              setIsModalOpen(false);
+              setSelectedBanner(null);
+            }}
             onSubmit={handleModalSubmit}
           />
         </div>

@@ -3,29 +3,19 @@ import { format } from 'date-fns';
 
 export function BannerModal({ banner, isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
-    bannerOrder: '',
     imgUrl: '',
     siteUrl: '',
     startDate: '',
-    endDate: '',
+    endDate: ''
   });
 
   useEffect(() => {
     if (banner) {
       setFormData({
-        bannerOrder: banner.bannerOrder,
-        imgUrl: banner.imgUrl,
-        siteUrl: banner.siteUrl,
-        startDate: format(new Date(banner.startDate), 'yyyy-MM-dd'),
-        endDate: format(new Date(banner.endDate), 'yyyy-MM-dd'),
-      });
-    } else {
-      setFormData({
-        bannerOrder: '',
-        imgUrl: '',
-        siteUrl: '',
-        startDate: format(new Date(), 'yyyy-MM-dd'),
-        endDate: format(new Date(), 'yyyy-MM-dd'),
+        imgUrl: banner.imgUrl || '',
+        siteUrl: banner.siteUrl || '',
+        startDate: banner.startDate || '',
+        endDate: banner.endDate || ''
       });
     }
   }, [banner]);
@@ -41,32 +31,18 @@ export function BannerModal({ banner, isOpen, onClose, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+    onClose();
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full">
         <h2 className="text-xl font-bold mb-4">
           {banner ? '배너 수정' : '새 배너 추가'}
         </h2>
-
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              순서
-            </label>
-            <input
-              type="number"
-              name="bannerOrder"
-              value={formData.bannerOrder}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               이미지 URL
@@ -83,7 +59,7 @@ export function BannerModal({ banner, isOpen, onClose, onSubmit }) {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              사이트 URL
+              링크 URL
             </label>
             <input
               type="text"
