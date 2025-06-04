@@ -14,8 +14,3 @@ export const fetchInquiryById = (id) => {
 export const answerInquiry = (id, answer) => {
     return adminAxios.patch(`/inquiries/${id}/answer`, { answer });
 };
-
-// 4. 문의 거절 (관리자)
-export const rejectInquiry = (id, answer) => {
-    return adminAxios.patch(`/inquiries/${id}/reject`, { answer });
-};
