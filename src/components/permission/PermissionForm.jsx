@@ -45,7 +45,7 @@ export default function PermissionForm({ member, onSuccess, onClose }) {
             const { added = [], removed = [] } = response ?? {};
 
             const format = (arr) =>
-                Array.isArray(arr) && arr.length > 0 ? arr.join(", ") : "";
+                Array.isArray(arr) && arr.length > 0 ? arr.join(", ") : "NONE";
 
             toast({
                 title: member.name + "'s PERMISSION UPDATED",
@@ -97,13 +97,15 @@ export default function PermissionForm({ member, onSuccess, onClose }) {
                                 취소
                             </Button>
                         )}
-                        <Button
-                            size="sm"
-                            onClick={handleSubmit}
-                            disabled={!isChanged || loading}
-                        >
-                            {loading ? "저장 중..." : "저장"}
-                        </Button>
+
+                            <Button
+                                size="sm"
+                                onClick={handleSubmit}
+                                disabled={!isChanged || loading}
+                            >
+                                {loading ? "저장 중..." : "저장"}
+                            </Button>
+
                     </div>
                 </div>
             </div>
