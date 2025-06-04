@@ -9,13 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { answerInquiry, rejectInquiry } from "@/api/inquiry";
+import { answerInquiry } from "@/api/inquiry";
 
-const statusBadgeVariant = {
-    PENDING: "warning",
-    ANSWERED: "primary",
-    REJECTED: "secondary",
-};
 const statusToVariant = {
     PENDING: "pending",
     ANSWERED: "answered",
@@ -33,14 +28,6 @@ const InquiryDetailForm = ({ inquiry, onSubmit }) => {
         setLoading(true);
         await answerInquiry(inquiry.id, answer);
         onSubmit(inquiry.id, "ANSWERED", answer);
-        setLoading(false);
-    };
-
-    const handleReject = async () => {
-        if (!answer.trim()) return;
-        setLoading(true);
-        await rejectInquiry(inquiry.id, answer);
-        onSubmit(inquiry.id, "REJECTED", answer);
         setLoading(false);
     };
 
@@ -81,9 +68,6 @@ const InquiryDetailForm = ({ inquiry, onSubmit }) => {
             </CardContent>
             {isPending && (
                 <CardFooter className="flex justify-end gap-2">
-                    <Button variant="outline" onClick={handleReject} disabled={loading}>
-                        거절
-                    </Button>
                     <Button onClick={handleAnswer} disabled={loading}>
                         답변 등록
                     </Button>
