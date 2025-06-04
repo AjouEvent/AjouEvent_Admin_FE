@@ -7,7 +7,9 @@ export const fetchAllMembers = async () =>
 export const fetchMembersByRole = async (role) =>
     adminAxios.get(`/members?role=${role}`);
 
-// 2. 역할 변경
+export const fetchMemberNonBlacklist = async () =>
+    adminAxios.get(`/members/non-blacklisted`);
+
 export const updateMemberRole = async (id, role) =>
     adminAxios.patch(`/members/${id}/role`, { role });
 

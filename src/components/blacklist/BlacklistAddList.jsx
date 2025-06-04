@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchBlacklist } from "@/api/blacklist.js";
-import { fetchAllMembers } from "@/api/member.js";
+import { fetchMemberNonBlacklist } from "@/api/member.js";
 import {
     Card, CardHeader, CardTitle, CardContent
 } from "@/components/ui/card.jsx";
@@ -20,7 +20,7 @@ const BlacklistAddList = () => {
 
     useEffect(() => {
         fetchBlacklist().then((res) => setBlacklist(res.data.blacklist));
-        fetchAllMembers().then((res) => setMembers(res.data.members));
+        fetchMemberNonBlacklist().then((res) => setMembers(res.data.members));
     }, []);
 
     const refreshBlacklist = () => {
@@ -65,7 +65,11 @@ const BlacklistAddList = () => {
             {selectedMember && (
                 <BlacklistAddModal
                     member={selectedMember}
-                    onSuccess={refreshBlacklist}
+                    onSuccess={() => {
+                        refreshBlacklist();
+                        setMembers((prev) => prev.filter((m) => m.id !== selectedMember.id));
+                        setSelectedMember(null);
+                    }}
                     onClose={() => setSelectedMember(null)}
                 />
             )}
