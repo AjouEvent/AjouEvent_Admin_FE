@@ -33,6 +33,13 @@
     --popover-foreground: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+
+    --chart-5: oklch(0.93 0.01 256);
+    --chart-2: oklch(0.71 0.04 257);
+    --chart-3: oklch(0.45 0.04 257);
+    --chart-4: oklch(0.55 0.04 257);
+    --chart-1: oklch(0.37 0.04 257);
   }
 
   .dark {
@@ -63,6 +70,12 @@
 
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
+
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
   }
 
   * {
