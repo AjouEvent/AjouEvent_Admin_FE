@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { login } from "@/api/auth"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { cn } from "@/lib/utils"
+import { login } from "@/api/auth.js"
+import { Button } from "@/components/ui/button.jsx"
+import { Input } from "@/components/ui/input.jsx"
+import { Label } from "@/components/ui/label.jsx"
+import { cn } from "@/lib/utils.js"
 import {useNavigate} from "react-router-dom";
 
 export function LoginForm({ className, onToggle, ...props }) {
@@ -27,7 +27,7 @@ export function LoginForm({ className, onToggle, ...props }) {
       })
 
       console.log("로그인 성공!", res.data)
-      navigate("/admin")
+      navigate("/member/role")
     } catch (err) {
       const code = err?.response?.data?.code
       if (code === 404001) {
