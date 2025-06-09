@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="105375c0-68c7-4102-b32b-89b74bcabc83" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/adminAxios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/adminAxios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +33,7 @@
     &quot;Node.js.sign-up-form.jsx.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;AJO-31-inquiry&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;AJO-30-NoticeTable&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/mac/Desktop/ajouEvent/Admnin/FE&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -104,6 +106,9 @@
       <workItem from="1748256380453" duration="9355000" />
       <workItem from="1748404812456" duration="7183000" />
       <workItem from="1748529170874" duration="19261000" />
+      <workItem from="1749034072618" duration="22230000" />
+      <workItem from="1749210982141" duration="792000" />
+      <workItem from="1749211961264" duration="1389000" />
     </task>
     <servers />
   </component>
