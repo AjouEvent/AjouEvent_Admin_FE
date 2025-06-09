@@ -25,4 +25,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/dist
+# workspace.xml
+.idea/workspace.xml
