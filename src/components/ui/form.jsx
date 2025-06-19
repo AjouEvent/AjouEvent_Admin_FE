@@ -39,7 +39,7 @@ const useFormField = () => {
     id,
     name: fieldContext.name,
     formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
+    formDescriptionId: `${id}-form-item-content`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
   }
@@ -103,7 +103,7 @@ function FormDescription({
 
   return (
     <p
-      data-slot="form-description"
+      data-slot="form-content"
       id={formDescriptionId}
       className={cn("text-muted-foreground text-sm", className)}
       {...props} />

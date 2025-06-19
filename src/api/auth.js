@@ -9,7 +9,7 @@ export async function signup({ email, password, userNickname }) {
             password,
             userNickname,
         })
-        return response.data // { id: 1 }
+        return response.data
     } catch (error) {
         // 명세상 400 응답은 error.response.data.message 포함
         const msg = error?.response?.data?.message || "회원가입 실패"
@@ -35,7 +35,7 @@ export async function login({ email, password }) {
 
 export async function logout() {
     try {
-        await adminAxios.post("/logout");
+        await adminAxios.post("http://localhost:8080/logout");
         sessionStorage.removeItem("JSESSIONID");
     } catch (err) {
         console.error("로그아웃 실패", err);

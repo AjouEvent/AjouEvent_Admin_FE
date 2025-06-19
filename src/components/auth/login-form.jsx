@@ -35,6 +35,7 @@ export function LoginForm({ className, onToggle, ...props }) {
       } else if (code === 400002) {
         setError("비밀번호가 일치하지 않습니다.")
       } else {
+        console.log(err)
         setError("나는 할거 다함 백앤드가 처리못함")
       }
     }
