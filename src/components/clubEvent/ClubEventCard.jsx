@@ -15,12 +15,7 @@ export default function ClubEventCard({ event, onHide, onShow }) {
     const [hidden, setHidden] = useState(event.hidden);
     const [loading, setLoading] = useState(false);
 
-    const images =
-        Array.isArray(event.images) && event.images.length > 0
-            ? event.images
-            : event.imageUrl
-                ? [{ url: event.imageUrl }]
-                : [];
+    const images = Array.isArray(event.imageUrls) ? event.imageUrls : [];
 
     const handleHide = async () => {
         setLoading(true);
@@ -65,11 +60,9 @@ export default function ClubEventCard({ event, onHide, onShow }) {
         }
     };
 
-    const hasValidImage = images.length > 0 && !!images[0].url;
+    const hasValidImage = images.length > 0 && !!images[0];  // images[0]이 string이면
     const [isError, setIsError] = useState(false);
-
-    // 실제 img src
-    const src = !hasValidImage || isError ? EMPTY_IMAGE_URL : images[0].url;
+    const src = !hasValidImage || isError ? EMPTY_IMAGE_URL : images[0];
 
     const imgClass =
         hasValidImage && !isError
