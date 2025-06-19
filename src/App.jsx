@@ -7,6 +7,7 @@ import MemberPermissionPage from "@/pages/MemberPermissionPage.jsx";
 import {Toaster} from "@/components/ui/toaster.jsx";
 import PushStatusPage from "@/pages/ChartPages.jsx";
 import ClubEventPage from "@/pages/ClubEventPage.jsx";
+import MainPage from "@/pages/Mainpage.jsx";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/inquiry" element={<InquiryPage />} />
                 <Route path="/push" element={<PushStatusPage />} />
                 <Route path="/club-event" element={<ClubEventPage />} />
+                <Route path="/main" element={<MainPage />} />
                 {/*<Route path="/push/1" element={<ChartBarInteractive />} />*/}
                 {/*<Route path="/push/2" element={<ChartPieDonutText />} />*/}
                 {/*<Route path="/push/3" element={<Component />} />*/}
