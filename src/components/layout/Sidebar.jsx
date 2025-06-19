@@ -14,12 +14,12 @@ export default function Sidebar() {
                     Dashboard
                 </Link>
                 {/* 사용자 권한 관리 */}
-                <Link to="/admin/banner" className="flex items-center gap-2 hover:underline">
+                <Link to="/member/banner" className="flex items-center gap-2 hover:underline">
                     <Package className="h-5 w-5" />
                     사용자 권한 관리
                 </Link>
                 {/* 배너 관리 */}
-                <Link to="/admin/banner-manage" className="flex items-center gap-2 hover:underline">
+                <Link to="/member/banner-manage" className="flex items-center gap-2 hover:underline">
                     <Package className="h-5 w-5" />
                     배너 관리
                 </Link>
