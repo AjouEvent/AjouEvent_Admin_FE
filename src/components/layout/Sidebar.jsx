@@ -42,6 +42,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }) {
                 </div>
                 {!isCollapsed && (
                     <div>
+                        <Separator className="my-2" />
                         {menu.map((group, idx) => (
                             <div key={idx} className="mb-4">
                                 <p className="text-xs text-muted-foreground font-semibold mb-1 overflow-hidden whitespace-nowrap">
@@ -71,10 +72,11 @@ export function Sidebar({ isCollapsed, toggleSidebar }) {
             {!isCollapsed && (
 
                 <div>
+                    <Separator/>
                     <SidebarLink to="/settings" icon={<Settings size={18} />}>Settings</SidebarLink>
                     <SidebarLink to="/help" icon={<HelpCircle size={18} />}>Help</SidebarLink>
                     <SidebarLink to="/search" icon={<Search size={18} />}>Search</SidebarLink>
-
+                    {/*<Separator/>*/}
                     <div className="flex items-center gap-3 mt-5">
                         <div className="w-10 h-10 rounded-full bg-gray-300" />
                         <div>
