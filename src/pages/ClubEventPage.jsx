@@ -13,6 +13,7 @@ import {
     fetchAllSubjects,
 } from "@/api/clubEvent";
 import SubjectSelect from "@/components/clubEvent/SubjectSelect.jsx";
+import PageContainer from "@/components/layout/PageContainer.jsx";
 
 export default function ClubEventPage() {
     const [subjectId, setSubjectId] = useState("");      // "" = 전체
@@ -70,7 +71,7 @@ export default function ClubEventPage() {
         }) ();
     };
     return (
-        <main className="p-6 md:p-10 w-full max-w-6xl mx-auto">
+        <PageContainer>
         {/*<div className="min-h-screen bg-muted flex flex-col px-4 py-8">*/}
             <div className="flex items-center justify-between gap-2 mb-7">
                 <h1 className="text-2xl font-bold">Club Event Management</h1>
@@ -131,6 +132,6 @@ export default function ClubEventPage() {
                     )
                 )}
             </div>
-            </main>
+        </PageContainer>
     );
 }

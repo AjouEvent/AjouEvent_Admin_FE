@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchAllInquiries } from "@/api/inquiry";
 import InquiryList from "@/components/inquiry/InquiryList";
 import InquiryDetailModal from "@/components/inquiry/InquiryDetailModal";
+import PageContainer from "@/components/layout/PageContainer.jsx";
 
 const InquiryPage = () => {
     const [selectedInquiry, setSelectedInquiry] = useState(null);
@@ -22,7 +23,8 @@ const InquiryPage = () => {
     };
 
     return (
-        <main className="p-6 md:p-10 w-full max-w-6xl mx-auto space-y-6">
+            <PageContainer>
+
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold">문의 관리</h1>
             </div>
@@ -36,7 +38,9 @@ const InquiryPage = () => {
                 onOpenChange={() => setSelectedInquiry(null)}
                 onSubmit={handleSubmit}
             />
-        </main>
+
+            </PageContainer>
+        // </main>
     );
 };
 
