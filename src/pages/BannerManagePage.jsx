@@ -5,6 +5,7 @@ import { BannerList } from '../components/banner/BannerList';
 import { BannerModal } from '../components/banner/BannerModal';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
+import PageContainer from "@/components/layout/PageContainer.jsx";
 
 function BannerManagePage() {
   const [banners, setBanners] = useState([]);
@@ -138,8 +139,8 @@ function BannerManagePage() {
 
   return (
     <div className="flex h-screen">
-      <main className="flex-1 p-6 bg-gray-50">
-        <div className="container mx-auto">
+      <PageContainer>
+        {/*<div className="container mx-auto">*/}
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">배너 관리</h1>
             <button
@@ -177,8 +178,8 @@ function BannerManagePage() {
             }}
             onSubmit={handleModalSubmit}
           />
-        </div>
-      </main>
+        {/*</div>*/}
+      </PageContainer>
     </div>
   );
 }

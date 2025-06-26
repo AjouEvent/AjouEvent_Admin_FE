@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import BlacklistRevokeList from "@/components/blacklist/BlacklistRevokeList";
 import BlacklistAddList from "@/components/blacklist/BlacklistAddList";
+import PageContainer from "@/components/layout/PageContainer.jsx";
 
 const BlacklistPage = () => {
     const [tab, setTab] = useState("add");
 
     return (
-            <main className="p-6 md:p-10 w-full max-w-6xl mx-auto space-y-6">
+            <PageContainer>
                 <div className="flex items-center justify-between">
                     <h1 className="text-2xl font-bold">블랙리스트 관리</h1>
                 </div>
@@ -26,7 +27,7 @@ const BlacklistPage = () => {
                         <BlacklistAddList />
                     </TabsContent>
                 </Tabs>
-            </main>
+            </PageContainer>
     );
 };
 
