@@ -1,10 +1,11 @@
 // src/api/auth.js
 import axios from "axios"
 import { adminAxios} from "@/api/adminAxios.js";
+const BASE_URL = import.meta.env.API_BASE_URL;
 
 export async function signup({ email, password, userNickname }) {
     try {
-        const response = await axios.post("http://localhost:8080/api/auth/signup", {
+        const response = await axios.post(`${BASE_URL}/api/auth/signup`, {
             email,
             password,
             userNickname,
@@ -18,7 +19,7 @@ export async function signup({ email, password, userNickname }) {
 }
 
 export async function login({ email, password }) {
-    const res = await axios.post("http://localhost:8080/api/auth/login", {
+    const res = await axios.post(`${BASE_URL}/api/auth/login`, {
         email,
         password,
     });
@@ -35,7 +36,7 @@ export async function login({ email, password }) {
 
 export async function logout() {
     try {
-        await adminAxios.post("http://localhost:8080/logout");
+        await adminAxios.post("/logout");
         sessionStorage.removeItem("JSESSIONID");
     } catch (err) {
         console.error("로그아웃 실패", err);
