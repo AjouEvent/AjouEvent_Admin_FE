@@ -73,10 +73,9 @@ export function Sidebar({ isCollapsed, toggleSidebar }) {
 
                 <div>
                     <Separator/>
-                    <SidebarLink to="/settings" icon={<Settings size={18} />}>Settings</SidebarLink>
-                    <SidebarLink to="/help" icon={<HelpCircle size={18} />}>Help</SidebarLink>
-                    <SidebarLink to="/search" icon={<Search size={18} />}>Search</SidebarLink>
-                    {/*<Separator/>*/}
+                    {/*<SidebarLink to="/settings" icon={<Settings size={18} />}>Settings</SidebarLink>*/}
+                    {/*<SidebarLink to="/help" icon={<HelpCircle size={18} />}>Help</SidebarLink>*/}
+                    {/*<SidebarLink to="/search" icon={<Search size={18} />}>Search</SidebarLink>*/}
                     <div className="flex items-center gap-3 mt-5">
                         <div className="w-10 h-10 rounded-full bg-gray-300" />
                         <div>
