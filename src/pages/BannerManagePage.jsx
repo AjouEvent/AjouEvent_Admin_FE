@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { BannerList } from '../components/banner/BannerList';
 import { BannerModal } from '../components/banner/BannerModal';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
+import { adminAxios } from '../api/adminAxios';
 import PageContainer from "@/components/layout/PageContainer.jsx";
 
 function BannerManagePage() {
@@ -19,7 +19,7 @@ function BannerManagePage() {
   const fetchBanners = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('/api/admin/banners');
+      const response = await adminAxios.get('/banners');
       setBanners(response.data.map(banner => ({
         ...banner,
         isPosted: banner.posted // API 응답의 posted를 isPosted로 매핑
@@ -43,7 +43,7 @@ function BannerManagePage() {
           bannerOrder: index + 1
         }));
 
-      await axios.put('/api/admin/banners/order', orderUpdateData);
+      await adminAxios.put('/banners/order', orderUpdateData);
       await fetchBanners(); // 순서 변경 후 목록 새로고침
     } catch (err) {
       console.error('순서 변경 에러:', err);
@@ -56,7 +56,7 @@ function BannerManagePage() {
     if (!window.confirm('정말로 이 배너를 삭제하시겠습니까?')) return;
 
     try {
-      await axios.delete(`/api/admin/banners/${bannerId}`);
+      await adminAxios.delete(`/banners/${bannerId}`);
       await fetchBanners(); // 삭제 후 목록 새로고침
     } catch (err) {
       console.error('배너 삭제 에러:', err);
@@ -87,7 +87,7 @@ function BannerManagePage() {
         ? Math.max(...banners.filter(b => b.isPosted).map(b => b.bannerOrder), 0) + 1 
         : 0;
 
-      await axios.put(`/api/admin/banners/${bannerId}`, {
+      await adminAxios.put(`/banners/${bannerId}`, {
         eventBannerId: bannerId,
         imgUrl: targetBanner.imgUrl,
         siteUrl: targetBanner.siteUrl,
@@ -109,7 +109,7 @@ function BannerManagePage() {
     try {
       if (selectedBanner) {
         // 수정
-        await axios.put(`/api/admin/banners/${selectedBanner.eventBannerId}`, {
+        await adminAxios.put(`/banners/${selectedBanner.eventBannerId}`, {
           ...formData,
           eventBannerId: selectedBanner.eventBannerId,
           posted: selectedBanner.isPosted,
@@ -117,7 +117,7 @@ function BannerManagePage() {
         });
       } else {
         // 추가
-        await axios.post('/api/admin/banners', {
+        await adminAxios.post('/banners', {
           ...formData,
           posted: false,
           bannerOrder: 0
